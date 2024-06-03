@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 /**
- * Write a description of class Jugadores here.
+ * Simula a un jugador y su salario.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Benjamin Bavera
+ * @version 0.1
  */
 public class Jugador
 {
