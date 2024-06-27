@@ -77,8 +77,7 @@ public class AABN
     {
         if (deportes.size() == 0) throw new IllegalStateException("No hay ningun deporte en la lista");
         for (Deporte deporte : deportes){
-            if (!deporte.isNull()){
-                Deporte imprimirDeporte = deporte;
+            if (deporte != null){
                 deporte.listAllJugadores();
             }
         }

@@ -30,14 +30,19 @@ public class Deporte
      */
     public Deporte(String deporte)
     {
-        if (deporte == null) throw new IllegallArgumentException("deporte no debe ser null");
+        if (deporte == null) throw new IllegalArgumentException("deporte no debe ser null");
         if (deporte.length() == 0) throw new IllegalArgumentException("deporte no debe ser vacio");
         this.deporte = deporte;
         this.presupuesto = 0;
         jugadores = new ArrayList();
     }
-
-     /**
+    
+    public void addPresupuesto(int monto)
+    {
+        presupuesto = presupuesto + monto;
+    }
+    
+    /**
      * Retorna el presupuesto del deporte.
      */
     public int obtenerPresupuesto()
@@ -45,7 +50,7 @@ public class Deporte
         return presupuesto;
     }
 
-     /**
+    /**
      * Agrega un jugador a la lista en la ultima posicion.
      * Precondicion: jugador no debe ser null.
      * Postcondicion: jugador se encuentra en la ultima posicion de la lista.
@@ -57,11 +62,22 @@ public class Deporte
         jugadores.add(jugador);
         assert jugador.equals(jugadores.get(jugadores.size()-1));
     }
-
+    
      /**
+     * Se paga el sueldo de todos los jugadores.
+     * Al presupuesto se le resta el sueldo total.
+     */
+    public void pagarSueldos()
+    {
+        if (presupuesto - sueldoTotal() < 0) throw new IllegalStateException("El presupuesto no alcanza");
+        presupuesto = presupuesto - sueldoTotal();
+        System.out.println("Los sueldos han sido pagados. Sobran " + presupuesto);
+    }
+    
+    /**
      * Retorna la suma de todos los sueldos de los jugadores.
      */
-    public int sueldoTotal()
+    private int sueldoTotal()
     {
         int sueldoTotal = 0;
         for (Jugador jugador : jugadores){
@@ -69,16 +85,14 @@ public class Deporte
         }
         return sueldoTotal;
     }
-    
-    }
 
-     /**
+    /**
      * Imprime la lista de todos los jugadores con sus respectivos sueldos solamente si no esta vacia.
      * precondicion: jugadores no debe ser vacia.
      */
     public void listAllJugadores()
     {
-        if (jugadores.size() == 0) throw new IllegallStateException("No hay ningun jugador en la lista");
+        if (jugadores.size() == 0) throw new IllegalStateException("No hay ningun jugador en la lista");
         System.out.println(deporte);
         for (Jugador jugador : jugadores){
             System.out.println("Nombre: " + jugador.getNombre() + 
