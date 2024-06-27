@@ -25,31 +25,42 @@ public class Deporte
     
     /**
      * Crea un objeto Deporte con el nombre indicado y presupuesto 0.
-     * precondicion: deporte no debe ser null o vacio..
+     * precondicion: deporte no debe ser null o vacio.
      * @param deporte: es el nombre del deporte.
      */
     public Deporte(String deporte)
     {
+        if (deporte == null) throw new IllegallArgumentException("deporte no debe ser null");
+        if (deporte.length() == 0) throw new IllegalArgumentException("deporte no debe ser vacio");
         this.deporte = deporte;
         this.presupuesto = 0;
         jugadores = new ArrayList();
     }
-    
-    public void addPresupuesto(int cantidad)
-    {
-        presupuesto = presupuesto + cantidad;
-    }
-    
-    public int getPresupuesto()
+
+     /**
+     * Retorna el presupuesto del deporte.
+     */
+    public int obtenerPresupuesto()
     {
         return presupuesto;
     }
-    
+
+     /**
+     * Agrega un jugador a la lista en la ultima posicion.
+     * Precondicion: jugador no debe ser null.
+     * Postcondicion: jugador se encuentra en la ultima posicion de la lista.
+     * @param jugador: es el jugador que queremos agregar.
+     */
     public void addJugador(Jugador jugador)
     {
+        if (jugador == null) throw new IllegalArgumentException("jugador no debe ser null");
         jugadores.add(jugador);
+        assert jugador.equals(jugadores.get(jugadores.size()-1));
     }
-    
+
+     /**
+     * Retorna la suma de todos los sueldos de los jugadores.
+     */
     public int sueldoTotal()
     {
         int sueldoTotal = 0;
@@ -59,19 +70,15 @@ public class Deporte
         return sueldoTotal;
     }
     
-    public void pagarSueldos()
-    {
-        int presupuestoRestante = 0;
-        if (presupuesto >= sueldoTotal()){
-            presupuesto = presupuesto - sueldoTotal();
-            System.out.println("Los sueldos han sido pagados. Sobran " + presupuestoRestante);
-        } else {
-            System.out.println("El presupuesto no alcanza");
-        }
     }
-    
+
+     /**
+     * Imprime la lista de todos los jugadores con sus respectivos sueldos solamente si no esta vacia.
+     * precondicion: jugadores no debe ser vacia.
+     */
     public void listAllJugadores()
     {
+        if (jugadores.size() == 0) throw new IllegallStateException("No hay ningun jugador en la lista");
         System.out.println(deporte);
         for (Jugador jugador : jugadores){
             System.out.println("Nombre: " + jugador.getNombre() + 
@@ -80,8 +87,4 @@ public class Deporte
         System.out.println("Sueldo total: " + sueldoTotal());
     }
     
-    public boolean isNull()
-    {
-        return (jugadores == null);
-    }
 }
