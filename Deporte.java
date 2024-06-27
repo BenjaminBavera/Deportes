@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
  * Simula de manera muy simple el manejo administrativo de un deporte.
  * 
- * @author Benjamin Bavera 
+ * @author KulilinWP
  * @version 0.1
  */
 public class Deporte
