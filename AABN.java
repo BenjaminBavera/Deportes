@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
  * Simula un club (de nombre AABN) En el cual hay deportes y jugadores.
  * 
- * @author Benjamin Bavera 
+ * @author KulilinWP 
  * @version 0.1
  */
 public class AABN
@@ -18,20 +18,27 @@ public class AABN
      */
     public AABN(int presupuesto)
     {
-        assert (presupuesto >= 0) : "Presupuesto no puede ser negativo";
+        if (presupuesto < 0) throw new IllegalArgumentException("Presupuesto no puede ser negativo");
         deportes = new ArrayList();
         presupuestoTotal = presupuesto;
+        assert presupuestoTotal == presupuesto;
     }
     
     /**
      * Aumenta el presupuesto del deporte seleccionado
      * Precondicion: cantidad tiene que ser positiva y no puede darse mas presupuesto del presupuesto total.
+     * Postcondicion: dismininuye el presupuesto total.
+     * @param deporte: es el deporte al cual le damos presupuesto.
+     * @param cantidad: es la cantidad de presupuesto que queremos dar.
      */
     public void darPresupuesto(Deporte deporte, int cantidad)
     {
-        assert (cantidad >0 && cantidad <= presupuestoTotal);
+        if (cantidad < 0) throw new IllegalArgumentException("cantidad no puede ser menor a 0");
+        if (cantidad > presupuestoTotal) throw new IllegalArgumentException("cantidad no puede ser mayor que el presupuestoTotal");
+        int presupuestoAnterior = presupuestoTotal;
         deporte.addPresupuesto(cantidad);
         presupuestoTotal = presupuestoTotal - cantidad;
+        assert presupuestoAnterior > presupuestoTotal;
     }
     
     /**
@@ -64,9 +71,11 @@ public class AABN
     /**
      * Imprime los detalles de cada deporte.
      * La lista deporte que sea null no sera impresa.
+     * Precondicion: la lista deportes no debe estar vacia.
      */
     public void listAllDeportes()
     {
+        if (deportes.size() == 0) throw new IllegalStateException("No hay ningun deporte en la lista");
         for (Deporte deporte : deportes){
             if (!deporte.isNull()){
                 Deporte imprimirDeporte = deporte;
